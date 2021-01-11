@@ -6,35 +6,6 @@ import 'package:flutter_hands_on/requests/product_request.dart';
 // httpライブラリを'http'という名前でimportする
 import 'package:http/http.dart' as http;
 
-class ProductListStore extends ChangeNotifier {
-  List<Product> _products = [];
-
-  List<Product> get products => _products;
-
-  bool _isFetching = false;
-
-  bool get isFetching => _isFetching;
-
-  fetchNextProducts() async {
-    if (_isFetching) {
-      return;
-    }
-    _isFetching = true;
-
-    final request = ProductRequest(
-      client: http.Client(),
-      offset: _products.length,
-    );
-
-    final products = await request.fetch().catchError((e) {
-      _isFetching = false;
-    });
-    _products.addAll(products);
-    _isFetching = false;
-    notifyListeners();
-  }
-}
-
 // main()はFlutterアプリケーションのエントリポイントです
 // main()の中で、runAppにルートとなるウィジェットを格納して呼ぶ必要があります
 void main() async {
@@ -98,5 +69,37 @@ class MyHomePage extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+// ChangeNotifierを継承して新しいStoreクラスを作る
+class ProductListStore extends ChangeNotifier {
+  // 実際に管理される商品のリスト
+  List<Product> _products = [];
+  
+  // 外側から直接変更されないように、getterのみ公開
+  List<Product> get products => _products;
+
+  bool _isFetching = false;
+
+  bool get isFetching => _isFetching;
+
+  fetchNextProducts() async {
+    if (_isFetching) {
+      return;
+    }
+    _isFetching = true;
+
+    final request = ProductRequest(
+      client: http.Client(),
+      offset: _products.length,
+    );
+
+    final products = await request.fetch().catchError((e) {
+      _isFetching = false;
+    });
+    _products.addAll(products);
+    _isFetching = false;
+    notifyListeners();
   }
 }
