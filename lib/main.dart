@@ -62,6 +62,7 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("SUZURI"),
       ),
+      // bodyで表示したいウィジェットを別のメソッドに切り出す
       body: _productsList(context),
     );
   }
