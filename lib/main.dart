@@ -99,11 +99,14 @@ class ProductListStore extends ChangeNotifier {
       offset: _products.length,
     );
 
+    // request.fetchはList<Product>を返すFutureオブジェクトを返す
     final products = await request.fetch().catchError((e) {
       _isFetching = false;
     });
+    // 取得できた商品のリストを追加する
     _products.addAll(products);
     _isFetching = false;
+    // 追加できたら、このStoreを購読しているウィジェットに通知する
     notifyListeners();
   }
 }
