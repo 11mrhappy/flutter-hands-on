@@ -76,10 +76,11 @@ class MyHomePage extends StatelessWidget {
 class ProductListStore extends ChangeNotifier {
   // 実際に管理される商品のリスト
   List<Product> _products = [];
-  
+
   // 外側から直接変更されないように、getterのみ公開
   List<Product> get products => _products;
 
+  // リクエスト実行中に再リクエストしないようにする
   bool _isFetching = false;
 
   bool get isFetching => _isFetching;
