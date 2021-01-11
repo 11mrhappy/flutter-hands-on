@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_hands_on/models/product.dart';
+import 'package:flutter_hands_on/requests/product_request.dart';
+
+// httpライブラリを'http'という名前でimportする
+import 'package:http/http.dart'; as http;
+
+
 
 // main()はFlutterアプリケーションのエントリポイントです
 // main()の中で、runAppにルートとなるウィジェットを格納して呼ぶ必要があります
