@@ -43,7 +43,7 @@ class MyHomePage extends StatelessWidget {
 
   Widget _productsList(BuildContext context) {
     return Container(
-      // GrideViewはウィジェットをグリッドで表示してくれるウィジェット
+      // GridViewはウィジェットをグリッドで表示してくれるウィジェット
       // IOS UIKitでいうところの UICollectionView
       // GridView.builderというfactory(カスタムコンストラクタ)初期化する
       child: GridView.builder(
