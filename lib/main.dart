@@ -85,12 +85,15 @@ class ProductListStore extends ChangeNotifier {
 
   bool get isFetching => _isFetching;
 
+  // Storeに変更を要求するインターフェイス
   fetchNextProducts() async {
     if (_isFetching) {
       return;
     }
     _isFetching = true;
 
+    // ProductRequestを初期化
+    // http.Clientは外側から与える
     final request = ProductRequest(
       client: http.Client(),
       offset: _products.length,
