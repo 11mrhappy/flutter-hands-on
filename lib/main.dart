@@ -28,8 +28,39 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("SUZURI"),
       ),
-      body: Center(
-        child: Text("Hello, SUZURI!"),
+      body: _productsList(context),
+    );
+  }
+
+  // Widgetを返すメソッド
+  // 引数はBuildContextで、呼び出し側のbuildで持っているものを渡す
+
+  Widget _productsList(BuildContext context) {
+    return Container(
+      // GrideViewはウィジェットをグリッドで表示してくれるウィジェット
+      // IOS UIKitでいうところの UICollectionView
+      // GridView.builderというfactory(カスタムコンストラクタ)初期化する
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          // グリッド横方向のウィジェット数
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          // グリッド表示するウィジェットの縦横比
+          childAspectRatio: 0.7,
+        ),
+        // グリッドに表示したいウィジェット数
+        itemCount: 6,
+        // itemBuilderはGridViewのインデックス毎に表示したいウィジェットを返すデリゲート
+        // context, indexを引数にとり、ウィジェットを返す関数を指定してやる
+        // itemContの回数だけ呼ばれる、この例では6回
+        itemBuilder: (context, index) {
+          // グレーのコンテナを表示
+          return Container(
+            color: Colors.grey,
+            margin: EdgeInsets.all(16),
+          );
+        },
       ),
     );
   }
