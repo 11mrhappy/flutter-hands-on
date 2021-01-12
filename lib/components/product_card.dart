@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hands_on/models/product.dart';
+import 'package:flutter_hands_on/pages/product_detail.dart';
 
 // StatelessWidgetを継承
 class ProductCard extends StatelessWidget {
@@ -11,11 +12,16 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ContainerをGestureDetectorでラップする
     return GestureDetector(
-      // onTapは、childウィジェットがタップされたら発火する
       onTap: () async {
-        print("tapped");
+        // Navigator.of(context).pushNamedで遷移を実行する
+        // 第一引数はルーティング名、argumentsはoptionalでパラメータを渡せる
+        // ProductDetailで書いた通り、遷移先のウィジェットでは、
+        // ModalRoute.of(context).settings.arguments でこの引数が取得できる
+        Navigator.of(context).pushNamed(
+          ProductDetail.routeName,
+          arguments: this.product,
+        );
       },
       // Container自体は変更不要
       child: Container(
