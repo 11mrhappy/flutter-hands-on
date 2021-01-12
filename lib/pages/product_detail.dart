@@ -25,4 +25,53 @@ class ProductDetail extends StatelessWidget {
       ),
     );
   }
+
+  Widget _body(BuildContext context, Product product) {
+    // SingleChildScrollViewは、childウィジェットが画面に収まりきらない時にスクロールで表示できるようにするウィジェット
+    return SingleChildScrollView(
+      // Columnは下にどんどん伸びていくので、ScrollViewと相性が良い
+      child: Column(
+        children: <Widget>[
+          Center(
+            child: Image.network(product.sampleImageUrl),
+          ),
+          Text(
+            product.title,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(product.item.humanizeName),
+          Text("${product.price.toString()}円"),
+          Text("作った人: ${product.material.user.name}"),
+          // product.material.descriptionは商品の説明
+          // 空っぽであることもあるので、三項演算子で出すウィジェットを変える
+          // String.isEmtpyは空文字の時trueを返す
+          product.material.description.isEmpty
+              ? Container()
+              : _descriptionSection(context, product),
+        ],
+      ),
+    );
+  }
+
+  Widget _descriptionSection(BuildContext context, Product product) {
+    return Container(
+      margin: EdgeInsets.only(top: 16.0),
+      child: Column(
+        children: <Widget>[
+          Text(
+            "このアイテムについて",
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.all(16.0),
+            child: Text(product.material.description),
+          ),
+        ],
+      ),
+    );
+  }
 }
