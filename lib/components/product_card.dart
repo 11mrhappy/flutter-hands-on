@@ -11,24 +11,25 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(16),
-      // Columnはウィジェットを縦に積むことができるウィジェット
-      child: Column(
-        // childrenにはList<Widget>を渡す
-        // 上から表示したい順にウィジェットを配置する
-        children: <Widget>[
-          Image.network(product.sampleImageUrl),
-          // SizedBoxはウィジェットのサイズを固定するためのウィジェット
-          // heightやwidthを指定すると、childのウィジェットのサイズがその通りになる便利なウィジェット
-          SizedBox(
-            height: 40,
-            // Product.titleは商品名を表す
-            child: Text(product.title),
-          ),
-          // Product.priceにはその商品の金額が格納されている
-          Text("${product.price.toString()}円"),
-        ],
+    // ContainerをGestureDetectorでラップする
+    return GestureDetector(
+      // onTapは、childウィジェットがタップされたら発火する
+      onTap: () async {
+        print("tapped");
+      },
+      // Container自体は変更不要
+      child: Container(
+        margin: EdgeInsets.all(16),
+        child: Column(
+          children: <Widget>[
+            Image.network(product.sampleImageUrl),
+            SizedBox(
+              height: 40,
+              child: Text(product.title),
+            ),
+            Text("${product.price.toString()}円"),
+          ],
+        ),
       ),
     );
   }
